@@ -8,9 +8,9 @@ import io.ktor.client.request.*
 
 object TeamRepositoryImpl : TeamRepository {
 
-    override suspend fun getTeam(name: String): Team = Client
+    override suspend fun getTeam(countryCode: String): Team = Client
         .getInstance()
-        .get("https://worldcupjson.net/teams/${name}")
+        .get("https://worldcupjson.net/teams/${countryCode}")
         .body()
 
     override suspend fun getAllTeams(): Collection<Team> = GroupRepositoryImpl

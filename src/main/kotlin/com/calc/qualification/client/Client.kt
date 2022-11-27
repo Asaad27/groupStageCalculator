@@ -1,6 +1,5 @@
 package com.calc.qualification.client
 
-import com.calc.qualification.repository.TeamRepositoryImpl
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
@@ -48,10 +47,4 @@ class Client {
 
         fun close() = client?.close()
     }
-}
-
-suspend fun main() {
-    val teams = TeamRepositoryImpl.getAllTeams()
-    teams.forEach { println(it) }
-    Client.close()
 }

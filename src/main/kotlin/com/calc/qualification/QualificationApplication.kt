@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class QualifactionApplication
+class QualificationApplication
 
 fun main(args: Array<String>) {
-    runApplication<QualifactionApplication>(*args)
+    runApplication<QualificationApplication>(*args)
 }
