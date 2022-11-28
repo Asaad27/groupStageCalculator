@@ -1,12 +1,14 @@
 package com.calc.qualification.repository
 
+import com.calc.qualification.dao.GroupDaoApi
+import com.calc.qualification.dao.TeamDaoApi
 import com.calc.qualification.model.Team
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 
 internal class TeamRepositoryImplTest {
 
-    private val teamRepo = TeamRepositoryImpl()
+    private val teamRepo = TeamRepositoryImpl(TeamDaoApi(), GroupDaoApi())
 
     @Test
     fun getTeam() {

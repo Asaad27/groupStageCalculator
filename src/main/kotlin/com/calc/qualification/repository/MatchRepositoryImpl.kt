@@ -1,18 +1,12 @@
 package com.calc.qualification.repository
 
-import com.calc.qualification.client.Client
+import com.calc.qualification.dao.MatchDao
 import com.calc.qualification.model.Group
 import com.calc.qualification.model.Match
-import io.ktor.client.call.*
-import io.ktor.client.request.*
 
-open class MatchRepositoryImpl : MatchRepository {
-    override suspend fun getAllMatches(): List<Match> {
-        return Client
-            .getInstance()
-            .get("https://worldcupjson.net/matches/")
-            .body()
-    }
+open class MatchRepositoryImpl(private val matchDao: MatchDao) : MatchRepository {
+
+    override suspend fun getAllMatches(): List<Match> = matchDao.fetchAllMatches()
 
     override suspend fun getAllMatchesOfTeam(countryCode: String): List<Match> {
         return getAllMatches()

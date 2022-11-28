@@ -6,14 +6,14 @@ import kotlinx.serialization.Serializable
 data class Team(
     val name: String,
     val country: String,
-    val group_points: Int,
-    val wins: Int,
-    val draws: Int,
-    val losses: Int,
-    val games_played: Int,
-    val goals_for: Int,
-    val goals_against: Int,
-    val goal_differential: Int
+    var group_points: Int,
+    var wins: Int,
+    var draws: Int,
+    var losses: Int,
+    var games_played: Int,
+    var goals_for: Int,
+    var goals_against: Int,
+    var goal_differential: Int
 ) : Comparable<Team> {
     override fun compareTo(other: Team): Int {
 
@@ -23,5 +23,6 @@ data class Team(
 
         return comparator.compare(this, other)
     }
+
 }
 

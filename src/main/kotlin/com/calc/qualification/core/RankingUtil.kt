@@ -3,7 +3,6 @@ package com.calc.qualification.core
 import com.calc.qualification.model.Group
 import com.calc.qualification.model.Team
 import com.calc.qualification.repository.MatchRepository
-import com.calc.qualification.repository.MatchRepositoryImpl
 import kotlinx.coroutines.runBlocking
 
 
@@ -24,16 +23,9 @@ class RankingUtil(private val matchRepo: MatchRepository) {
         group.teams.reverse()
     }
 
-    private suspend fun getPointsBetween(teamName1: String, teamName2: String): Pair<Int, Int> {
+    private suspend fun getPointsBetween( teamName1: String, teamName2: String): Pair<Int, Int>{
         val result = matchRepo.getMatchResult(teamName1, teamName2)
-        return if (result.first == null || result.second == null)
-            0 to 0
-        else if (result.first!! > result.second!!)
-            3 to 0
-        else if (result.first == result.second)
-            1 to 1
-        else
-            0 to 3
+        return Companion.getPointsBetween(result)
     }
 
     private suspend fun getGoalsBetween(teamName1: String, teamName2: String): Pair<Int?, Int?> {
@@ -85,6 +77,20 @@ class RankingUtil(private val matchRepo: MatchRepository) {
                 { teamsToGoals[it] })
         )
 
+    }
+
+    companion object {
+          fun getPointsBetween(result: Pair<Int?, Int?>): Pair<Int, Int> {
+
+            return if (result.first == null || result.second == null)
+                0 to 0
+            else if (result.first!! > result.second!!)
+                3 to 0
+            else if (result.first == result.second)
+                1 to 1
+            else
+                0 to 3
+        }
     }
 
 }

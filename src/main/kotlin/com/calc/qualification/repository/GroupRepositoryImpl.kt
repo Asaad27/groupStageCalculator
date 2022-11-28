@@ -1,16 +1,11 @@
 package com.calc.qualification.repository
 
-import com.calc.qualification.client.Client
+import com.calc.qualification.dao.GroupDao
 import com.calc.qualification.model.Group
 import com.calc.qualification.model.Groups
-import io.ktor.client.call.*
-import io.ktor.client.request.*
 
-class GroupRepositoryImpl : GroupRepository {
-    override suspend fun getAllGroups(): Groups = Client
-        .getInstance()
-        .get("https://worldcupjson.net/teams/")
-        .body()
+class GroupRepositoryImpl(private val groupDao: GroupDao) : GroupRepository {
+    override suspend fun getAllGroups(): Groups = groupDao.fetchAllGroups()
 
     override suspend fun getGroup(letter: String): Group =
        getAllGroups().groups.first { it.letter == letter }

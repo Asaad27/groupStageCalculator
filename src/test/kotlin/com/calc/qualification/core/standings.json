@@ -324,14 +324,14 @@
         {
           "name": "Brazil",
           "country": "BRA",
-          "group_points": 3,
-          "wins": 1,
+          "group_points": 6,
+          "wins": 2,
           "draws": 0,
           "losses": 0,
-          "games_played": 1,
-          "goals_for": 2,
+          "games_played": 2,
+          "goals_for": 3,
           "goals_against": 0,
-          "goal_differential": 2
+          "goal_differential": 3
         },
         {
           "name": "Switzerland",
@@ -339,34 +339,34 @@
           "group_points": 3,
           "wins": 1,
           "draws": 0,
-          "losses": 0,
-          "games_played": 1,
+          "losses": 1,
+          "games_played": 2,
           "goals_for": 1,
-          "goals_against": 0,
-          "goal_differential": 1
+          "goals_against": 1,
+          "goal_differential": 0
         },
         {
           "name": "Cameroon",
           "country": "CMR",
-          "group_points": 0,
+          "group_points": 1,
           "wins": 0,
-          "draws": 0,
+          "draws": 1,
           "losses": 1,
-          "games_played": 1,
-          "goals_for": 0,
-          "goals_against": 1,
+          "games_played": 2,
+          "goals_for": 3,
+          "goals_against": 4,
           "goal_differential": -1
         },
         {
           "name": "Serbia",
           "country": "SRB",
-          "group_points": 0,
+          "group_points": 1,
           "wins": 0,
-          "draws": 0,
+          "draws": 1,
           "losses": 1,
-          "games_played": 1,
-          "goals_for": 0,
-          "goals_against": 2,
+          "games_played": 2,
+          "goals_for": 3,
+          "goals_against": 5,
           "goal_differential": -2
         }
       ]
@@ -387,15 +387,15 @@
           "goal_differential": 1
         },
         {
-          "name": "Korea Republic",
-          "country": "KOR",
-          "group_points": 1,
-          "wins": 0,
-          "draws": 1,
-          "losses": 0,
-          "games_played": 1,
-          "goals_for": 0,
-          "goals_against": 0,
+          "name": "Ghana",
+          "country": "GHA",
+          "group_points": 3,
+          "wins": 1,
+          "draws": 0,
+          "losses": 1,
+          "games_played": 2,
+          "goals_for": 5,
+          "goals_against": 5,
           "goal_differential": 0
         },
         {
@@ -411,13 +411,13 @@
           "goal_differential": 0
         },
         {
-          "name": "Ghana",
-          "country": "GHA",
-          "group_points": 0,
+          "name": "Korea Republic",
+          "country": "KOR",
+          "group_points": 1,
           "wins": 0,
-          "draws": 0,
+          "draws": 1,
           "losses": 1,
-          "games_played": 1,
+          "games_played": 2,
           "goals_for": 2,
           "goals_against": 3,
           "goal_differential": -1

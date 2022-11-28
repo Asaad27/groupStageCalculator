@@ -1,5 +1,6 @@
 package com.calc.qualification.repository
 
+import com.calc.qualification.dao.GroupDaoApi
 import com.calc.qualification.model.Group
 import com.calc.qualification.model.Groups
 import kotlinx.coroutines.runBlocking
@@ -7,7 +8,7 @@ import org.junit.jupiter.api.Test
 
 internal class GroupRepositoryImplTest {
 
-    private val groupRepo = GroupRepositoryImpl()
+    private val groupRepo = GroupRepositoryImpl(GroupDaoApi())
     @Test
     fun getAllGroups() {
         val groups : Groups

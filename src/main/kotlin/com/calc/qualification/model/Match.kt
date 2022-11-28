@@ -18,6 +18,14 @@ data class Match(
     override fun hashCode(): Int {
         return id
     }
+
+    fun clone(): Match {
+        TODO("not yet implemented")
+    }
+
+    fun getResult(): Pair<Int, Int> {
+        TODO("not yet implemented")
+    }
 }
 
 @Serializable
