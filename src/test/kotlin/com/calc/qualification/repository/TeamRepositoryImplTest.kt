@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 
 internal class TeamRepositoryImplTest {
 
-    private val teamRepo = TeamRepositoryImpl
+    private val teamRepo = TeamRepositoryImpl()
 
     @Test
     fun getTeam() {

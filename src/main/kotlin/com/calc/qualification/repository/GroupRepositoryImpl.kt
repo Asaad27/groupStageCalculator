@@ -6,7 +6,7 @@ import com.calc.qualification.model.Groups
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 
-object GroupRepositoryImpl : GroupRepository {
+class GroupRepositoryImpl : GroupRepository {
     override suspend fun getAllGroups(): Groups = Client
         .getInstance()
         .get("https://worldcupjson.net/teams/")

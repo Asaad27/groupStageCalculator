@@ -12,7 +12,7 @@ import java.nio.charset.Charset
 
 internal class RankingUtilTest{
 
-    private val groupRepo = GroupRepositoryImpl
+    private val groupRepo = GroupRepositoryImpl()
 
     @Test
     fun sortAllGroupsTest() {
@@ -21,7 +21,8 @@ internal class RankingUtilTest{
             allGroups = groupRepo.getAllGroups()
         }
         for (group in allGroups.groups) {
-            RankingUtil.sortGroup(group)
+            //RankingUtil.sortGroup(group)
+            TODO("implement")
         }
 
         val encodedJson = Json.encodeToString(allGroups)

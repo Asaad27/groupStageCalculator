@@ -6,7 +6,7 @@ import com.calc.qualification.model.Match
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 
-object MatchRepositoryImpl : MatchRepository {
+open class MatchRepositoryImpl : MatchRepository {
     override suspend fun getAllMatches(): List<Match> {
         return Client
             .getInstance()
@@ -32,12 +32,7 @@ object MatchRepositoryImpl : MatchRepository {
         return getAllMatchesOfTeam(countryCodeA)
             .filter { it.away_team.country == countryCodeB || it.home_team.country == countryCodeB }
             .map { (it.home_team.country to it.home_team.goals) to (it.away_team.country to it.away_team.goals) }
-            .map {
-                if (it.first.first == countryCodeA){
-                    return it.first.second to it.second.second
-                }else{
-                    return it.second.second to it.first.second
-                }
-            }.first<Pair<Int, Int>>()
+            .map { if (it.first.first == countryCodeA) return it.first.second to it.second.second else return it.second.second to it.first.second }
+            .first<Pair<Int, Int>>()
     }
 }

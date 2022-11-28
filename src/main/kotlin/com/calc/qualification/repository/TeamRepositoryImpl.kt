@@ -6,7 +6,7 @@ import com.calc.qualification.model.Team
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 
-object TeamRepositoryImpl : TeamRepository {
+class TeamRepositoryImpl : TeamRepository {
 
     override suspend fun getTeam(countryCode: String): Team = Client
         .getInstance()
@@ -18,7 +18,7 @@ object TeamRepositoryImpl : TeamRepository {
             .first { it.name == name }
     }
 
-    override suspend fun getAllTeams(): Collection<Team> = GroupRepositoryImpl
+    override suspend fun getAllTeams(): Collection<Team> = GroupRepositoryImpl()
         .getAllGroups()
         .groups
         .flatMap { it.teams }

@@ -9,18 +9,20 @@ import com.calc.qualification.repository.TeamRepositoryImpl
 import kotlinx.coroutines.runBlocking
 
 class ConditionFinder(private val teamName: String) {
-    private val groupRepo = GroupRepositoryImpl
-    private val teamRepo = TeamRepositoryImpl
-    private val matchRepo = MatchRepositoryImpl
-    private var group: Group
-    private var team: Team
+    private val groupRepo = GroupRepositoryImpl()
+    private val teamRepo = TeamRepositoryImpl()
+    private val matchRepo = MatchRepositoryImpl()
+
+    private lateinit var group: Group
+    private lateinit var team: Team
 
     init {
         runBlocking {
             group = groupRepo.getGroupOfTeam(teamName)
             team = teamRepo.getTeamByName(teamName)
         }
-        RankingUtil.sortGroup(group)
+        TODO("configure")
+        //RankingUtil.sortGroup(group)
     }
 
     suspend fun resultsToQualify(): List<List<Match>> {

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 
 internal class GroupRepositoryImplTest {
 
-    private val groupRepo = GroupRepositoryImpl
+    private val groupRepo = GroupRepositoryImpl()
     @Test
     fun getAllGroups() {
         val groups : Groups

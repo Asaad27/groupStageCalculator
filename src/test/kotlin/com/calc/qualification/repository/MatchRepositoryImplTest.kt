@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 
 internal class MatchRepositoryImplTest {
 
-    private val matchRepo = MatchRepositoryImpl
+    private val matchRepo = MatchRepositoryImpl()
     @Test
     fun getAllMatches() {
         runBlocking {
@@ -34,7 +34,7 @@ internal class MatchRepositoryImplTest {
 
     @Test
     fun getRemainingMatchesGroup(){
-        val groupRepo = GroupRepositoryImpl
+        val groupRepo = GroupRepositoryImpl()
         runBlocking {
             val result = matchRepo.getRemainingMatchesGroup(groupRepo.getGroup("F"))
             result.forEach { println(it) }
