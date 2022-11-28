@@ -44,30 +44,22 @@ class RankingUtil {
         private suspend fun tieSolver(teams: MutableList<Team>) {
 
             val tiedTeamSet = HashSet<Team>()
-            for (team in teams) {
+            teams.forEach { team ->
                 teams.filterTo(tiedTeamSet) { it != team && it.compareTo(team) == 0 }
             }
 
             if (tiedTeamSet.isEmpty())
                 return
 
-            val mapToPointsBetweenTied = tiedTeamSet.associateWith { 0 }.toMutableMap()
+            val teamsToPoints = tiedTeamSet.associateWith { 0 }.toMutableMap()
+            val teamsToGoalDiff = tiedTeamSet.associateWith { 0 }.toMutableMap()
+            val teamsToGoals = tiedTeamSet.associateWith { 0 }.toMutableMap()
+
             val tiedTeams = teams.subList(
                 teams.indexOfFirst { tiedTeamSet.contains(it) },
                 teams.indexOfLast { tiedTeamSet.contains(it) } + 1
             )
 
-            for (team in tiedTeamSet) {
-                for (other in tiedTeamSet) {
-                    if (team == other)
-                        continue
-                    mapToPointsBetweenTied[team] =
-                        mapToPointsBetweenTied[team]!! + getPointsBetween(team.country, other.country).first
-                }
-            }
-
-            val mapToGoalDiffBetweenTied = tiedTeamSet.associateWith { 0 }.toMutableMap()
-            val mapToGoalsBetweenTied = tiedTeamSet.associateWith { 0 }.toMutableMap()
             for (team in tiedTeamSet) {
                 var goalDiff = 0
                 var goalScored = 0
@@ -77,15 +69,16 @@ class RankingUtil {
                     val goals = getGoalsBetween(team.country, other.country)
                     goalDiff += (goals.first ?: 0) - (goals.second ?: 0)
                     goalScored += (goals.first ?: 0)
+                    teamsToPoints[team] = teamsToPoints[team]!! + getPointsBetween(team.country, other.country).first
                 }
-                mapToGoalDiffBetweenTied[team] = goalDiff
-                mapToGoalsBetweenTied[team] = goalScored
+                teamsToGoalDiff[team] = goalDiff
+                teamsToGoals[team] = goalScored
             }
 
             tiedTeams.sortWith(
-                compareBy({ mapToPointsBetweenTied[it] },
-                    { mapToGoalDiffBetweenTied[it] },
-                    { mapToGoalsBetweenTied[it] })
+                compareBy({ teamsToPoints[it] },
+                    { teamsToGoalDiff[it] },
+                    { teamsToGoals[it] })
             )
 
         }

@@ -32,6 +32,7 @@ dependencies {
     implementation("io.ktor:ktor-client-resources:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
 
 tasks.withType<KotlinCompile> {

@@ -31,4 +31,14 @@ internal class MatchRepositoryImplTest {
             result.first == secondResult.second)
         }
     }
+
+    @Test
+    fun getRemainingMatchesGroup(){
+        val groupRepo = GroupRepositoryImpl
+        runBlocking {
+            val result = matchRepo.getRemainingMatchesGroup(groupRepo.getGroup("F"))
+            result.forEach { println(it) }
+        }
+
+    }
 }

@@ -10,7 +10,7 @@ internal class TeamRepositoryImplTest {
 
     @Test
     fun getTeam() {
-        val team : Team
+        val team: Team
         runBlocking {
             team = teamRepo.getTeam("MAR")
         }
@@ -19,10 +19,22 @@ internal class TeamRepositoryImplTest {
 
     @Test
     fun getAllTeams() {
-        val teams : List<Team>
+        val teams: List<Team>
         runBlocking {
             teams = teamRepo.getAllTeams().toList()
         }
         assert(teams.size == 32)
+    }
+
+    @Test
+    fun getTeamByName() {
+        val teamByName: Team
+        val teamByCode: Team
+        runBlocking {
+            teamByName = teamRepo.getTeamByName("Morocco")
+            teamByCode = teamRepo.getTeam("MAR")
+        }
+
+        assert(teamByName == teamByCode)
     }
 }

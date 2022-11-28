@@ -13,6 +13,11 @@ object TeamRepositoryImpl : TeamRepository {
         .get("https://worldcupjson.net/teams/${countryCode}")
         .body()
 
+    override suspend fun getTeamByName(name: String): Team {
+        return getAllTeams()
+            .first { it.name == name }
+    }
+
     override suspend fun getAllTeams(): Collection<Team> = GroupRepositoryImpl
         .getAllGroups()
         .groups

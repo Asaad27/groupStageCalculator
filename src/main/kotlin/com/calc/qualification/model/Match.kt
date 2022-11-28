@@ -2,16 +2,23 @@ package com.calc.qualification.model
 
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 data class Match(
     val home_team: MatchTeam,
     val away_team: MatchTeam,
     val id: Int,
-    val status: String,
-    val winner: String? = null,
-    val winner_code: String? = null
-)
+    var status: String,
+    var winner: String? = null,
+    var winner_code: String? = null
+){
+    override fun equals(other: Any?): Boolean {
+        return this.hashCode() == other.hashCode()
+    }
+
+    override fun hashCode(): Int {
+        return id
+    }
+}
 
 @Serializable
 data class MatchTeam(

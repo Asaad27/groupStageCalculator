@@ -2,7 +2,6 @@ package com.calc.qualification.model
 
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 data class Team(
     val name: String,
@@ -16,7 +15,6 @@ data class Team(
     val goals_against: Int,
     val goal_differential: Int
 ) : Comparable<Team> {
-
     override fun compareTo(other: Team): Int {
 
         val comparator = compareBy<Team> { it.group_points }
@@ -25,6 +23,5 @@ data class Team(
 
         return comparator.compare(this, other)
     }
-
 }
 
