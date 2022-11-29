@@ -377,14 +377,14 @@
         {
           "name": "Portugal",
           "country": "POR",
-          "group_points": 3,
-          "wins": 1,
+          "group_points": 6,
+          "wins": 2,
           "draws": 0,
           "losses": 0,
-          "games_played": 1,
-          "goals_for": 3,
+          "games_played": 2,
+          "goals_for": 5,
           "goals_against": 2,
-          "goal_differential": 1
+          "goal_differential": 3
         },
         {
           "name": "Ghana",
@@ -399,18 +399,6 @@
           "goal_differential": 0
         },
         {
-          "name": "Uruguay",
-          "country": "URU",
-          "group_points": 1,
-          "wins": 0,
-          "draws": 1,
-          "losses": 0,
-          "games_played": 1,
-          "goals_for": 0,
-          "goals_against": 0,
-          "goal_differential": 0
-        },
-        {
           "name": "Korea Republic",
           "country": "KOR",
           "group_points": 1,
@@ -421,6 +409,18 @@
           "goals_for": 2,
           "goals_against": 3,
           "goal_differential": -1
+        },
+        {
+          "name": "Uruguay",
+          "country": "URU",
+          "group_points": 1,
+          "wins": 0,
+          "draws": 1,
+          "losses": 1,
+          "games_played": 2,
+          "goals_for": 0,
+          "goals_against": 2,
+          "goal_differential": -2
         }
       ]
     }

@@ -22,6 +22,15 @@ open class MatchRepositoryImpl(private val matchDao: MatchDao) : MatchRepository
         return matchSet.toList()
     }
 
+    override suspend fun getAllCompletedMatchesGroup(group: Group): List<Match> {
+        val matchSet = HashSet<Match>()
+        group.teams.forEach {
+            matchSet.addAll(getAllMatchesOfTeam(it.country).filter { match: Match -> match.status == "completed" })
+        }
+
+        return matchSet.toList()
+    }
+
     override suspend fun getMatchResult(countryCodeA: String, countryCodeB: String): Pair<Int?, Int?> {
         return getAllMatchesOfTeam(countryCodeA)
             .filter { it.away_team.country == countryCodeB || it.home_team.country == countryCodeB }

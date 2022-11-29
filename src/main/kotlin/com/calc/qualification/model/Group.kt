@@ -9,7 +9,8 @@ data class Group(
 ){
     fun clone() : Group{
         val current = this
-        return Group(current.letter, mutableListOf<Team>().apply { addAll(current.teams) })
+
+        return Group(current.letter, mutableListOf<Team>().apply { addAll(current.teams.map { it.copy() }) })
     }
 }
 

@@ -9,4 +9,5 @@ sealed interface MatchRepository{
     suspend fun getMatchResult(countryCodeA: String, countryCodeB: String): Pair<Int?, Int?>
     suspend fun getAllMatchesOfTeam(countryCode: String): List<Match>
     suspend fun getRemainingMatchesGroup(group: Group): List<Match>
+    suspend fun getAllCompletedMatchesGroup(group: Group): List<Match>
 }

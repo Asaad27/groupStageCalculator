@@ -7,6 +7,7 @@ import com.calc.qualification.model.Team
 
 class TeamRepositoryImpl(private val teamDao: TeamDao, private val groupDao: GroupDao) : TeamRepository {
 
+    //todo: cache data
     override suspend fun getTeam(countryCode: String): Team = teamDao.fetchTeam(countryCode)
 
     override suspend fun getTeamByName(name: String): Team {

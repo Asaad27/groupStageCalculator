@@ -24,5 +24,14 @@ data class Team(
         return comparator.compare(this, other)
     }
 
+    override fun equals(other: Any?): Boolean {
+        return this.hashCode() == other.hashCode()
+    }
+
+    override fun hashCode(): Int {
+        return country.hashCode()
+    }
+
+
 }
 
