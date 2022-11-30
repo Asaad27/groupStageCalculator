@@ -27,13 +27,7 @@ class Client {
                         ignoreUnknownKeys = true
                     })
                 }
-                install(Logging) {
-                    logger = Logger.DEFAULT
-                    level = LogLevel.HEADERS
-                    filter { request ->
-                        request.url.host.contains("worldcupjson.net")
-                    }
-                }
+
             }
         }
 
