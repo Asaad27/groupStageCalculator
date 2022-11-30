@@ -12,6 +12,7 @@ import com.calc.qualification.repository.GroupRepositoryImpl
 import com.calc.qualification.repository.MatchRepositoryImpl
 import com.calc.qualification.repository.TeamRepositoryImpl
 import kotlinx.coroutines.runBlocking
+import java.util.*
 
 class ConditionFinder(private val teamName: String) {
     private val groupRepo = GroupRepositoryImpl(GroupDaoApi())
@@ -30,8 +31,9 @@ class ConditionFinder(private val teamName: String) {
             group = groupRepo.getGroupOfTeam(teamName)
             team = teamRepo.getTeamByName(teamName)
             completedMatches = matchRepo.getAllCompletedMatchesGroup(group)
+            RankingUtil(matchRepo).sortGroup(group)
         }
-        RankingUtil(matchRepo).sortGroup(group)
+
     }
 
     private fun applyMatchToGroup(
@@ -82,56 +84,78 @@ class ConditionFinder(private val teamName: String) {
     }
 
     private fun generateResultCombinations(): List<Pair<Int, Int>> {
-        val results = mutableListOf<Pair<Int, Int>>()
-        results.add(0 to 0)
-        for (i in 1..goalLimit) {
-            results.add(i to 0)
-            results.add(0 to i)
-            if (i < 4)
-                results.add(i to i)
-        }
-
-        return results
+        return listOf(
+            5 to 0,
+            4 to 0,
+            3 to 0,
+            2 to 0,
+            1 to 0,
+            0 to 0,
+            1 to 1,
+            2 to 2,
+            3 to 3,
+            4 to 4,
+            5 to 5,
+            0 to 1,
+            0 to 2,
+            0 to 3,
+            0 to 4,
+            0 to 5
+        )
     }
 
-    fun findPossibleResults(): Pair<List<List<Match>>, List<List<Match>>> {
+    suspend fun findPossibleResults(teamName: String): List<List<Match>> {
         val qualified = mutableListOf<List<Match>>()
-        val failed = mutableListOf<List<Match>>()
-        val remaining: List<Match>
+        mutableListOf<List<Match>>()
+        val remaining: MutableList<Match>
         runBlocking {
-            remaining = matchRepo.getRemainingMatchesGroup(group)
+            remaining = matchRepo.getRemainingMatchesGroup(group).toMutableList()
         }
 
-        if (remaining.isEmpty())
-            throw Exception("no remaining match")
+        when {
+            remaining.isEmpty() -> throw Exception("no remaining match")
+            remaining.size > 2 -> throw Exception("not yet implemented")
+            remaining.size == 2 -> {
+                if (remaining[0].isPlaying(teamName))
+                    Collections.swap(remaining, 0, 1)
+            }
+        }
 
-        dfs(0, remaining.toMutableList(), qualified, failed)
+        val matchOfTeam = remaining.first { it.isPlaying(teamName) }
+        if (matchOfTeam.home_team.name == teamName){
+            matchOfTeam.swapTeams()
+        }
 
-        return qualified to failed
+        dfs(0, remaining, qualified)
+
+        return qualified
     }
 
-    private fun dfs(i: Int, remaining: MutableList<Match>, qualified: MutableList<List<Match>>, failed: MutableList<List<Match>>) {
+    private suspend fun dfs(i: Int, remaining: MutableList<Match>, qualified: MutableList<List<Match>>): Boolean {
         if (i == remaining.size) {
-            if (willQualify(remaining))
-                qualified.add(remaining.toList())
-            else
-                failed.add(remaining.toList())
-            return
+            val willQualify = willQualify(remaining)
+            if (willQualify) {
+                qualified.add(remaining.deepCopy())
+            }
+
+            return willQualify
         }
 
         for (score in resultsComb) {
-            if (score == remaining[i].getResult())
-                continue
+
             val previous = remaining[i].clone()
             computeResultToMatch(score, remaining[i])
-            dfs(i + 1, remaining, qualified, failed)
+            if (dfs(i + 1, remaining, qualified)) {
+                break
+            }
             remaining[i] = previous
         }
 
+        return false
     }
 
 
-    private fun willQualify(matches: List<Match>): Boolean {
+    private suspend fun willQualify(matches: List<Match>): Boolean {
 
         if (matches.isEmpty())
             throw Exception("empty list of matches")
@@ -155,4 +179,8 @@ class ConditionFinder(private val teamName: String) {
 
     fun groupHasRemainingMatches() = group.teams.any { it.games_played < 4 }
 
+}
+
+private fun MutableList<Match>.deepCopy(): List<Match> {
+    return this.map { it.clone() }.toList()
 }

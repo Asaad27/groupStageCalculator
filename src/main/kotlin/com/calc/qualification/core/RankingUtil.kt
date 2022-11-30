@@ -15,11 +15,9 @@ import kotlinx.coroutines.runBlocking
  */
 class RankingUtil(private val matchRepo: MatchRepository) {
 
-    fun sortGroup(group: Group) {
+    suspend fun sortGroup(group: Group) {
         group.teams.sort()
-        runBlocking {
-            tieSolver(group.teams)
-        }
+        tieSolver(group.teams)
         group.teams.reverse()
     }
 

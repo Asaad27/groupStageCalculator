@@ -19,7 +19,7 @@ internal class RankingUtilTest{
 
 
     @Test
-    fun sortAllGroupsTest() {
+    suspend fun sortAllGroupsTest() {
         val allGroups : Groups
         val rankingUtil = RankingUtil(MatchRepositoryImpl(MatchDaoApi()))
         runBlocking {

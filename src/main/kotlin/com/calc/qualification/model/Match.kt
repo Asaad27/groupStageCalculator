@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Match(
-    val home_team: MatchTeam,
-    val away_team: MatchTeam,
+    var home_team: MatchTeam,
+    var away_team: MatchTeam,
     val id: Int,
     var status: String,
     var winner: String? = null,
@@ -39,6 +39,21 @@ data class Match(
 
         return "(${this.home_team.name} ${result.first} : ${result.second} ${this.away_team.name})"
     }
+
+    fun isPlaying(teamName: String): Boolean {
+        return this.home_team.name == teamName || this.away_team.name == teamName
+    }
+
+    fun isDraw(): Boolean {
+        return this.home_team.goals == this.away_team.goals
+    }
+
+    fun swapTeams() {
+        val temp = this.home_team
+        this.home_team = away_team
+        this.away_team = temp
+    }
+
 }
 
 @Serializable
