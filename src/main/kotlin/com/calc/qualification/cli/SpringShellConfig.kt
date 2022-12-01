@@ -1,4 +1,4 @@
-package com.calc.qualification
+package com.calc.qualification.cli
 
 import org.jline.terminal.Terminal
 import org.springframework.context.annotation.Bean

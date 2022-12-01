@@ -1,4 +1,4 @@
-package com.calc.qualification
+package com.calc.qualification.cli
 
 import org.jline.utils.AttributedString
 import org.jline.utils.AttributedStyle

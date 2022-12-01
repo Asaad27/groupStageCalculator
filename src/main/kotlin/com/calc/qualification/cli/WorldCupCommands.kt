@@ -1,24 +1,18 @@
-package com.calc.qualification
+package com.calc.qualification.cli
 
 import com.calc.qualification.core.ConditionFinder
 import com.calc.qualification.core.RankingUtil
-import com.calc.qualification.dao.GroupDaoApi
 import com.calc.qualification.dao.MatchDaoApi
-import com.calc.qualification.dao.TeamDaoApi
 import com.calc.qualification.model.Groups
 import com.calc.qualification.model.Match
 import com.calc.qualification.model.Team
-import com.calc.qualification.repository.GroupRepositoryImpl
 import com.calc.qualification.repository.MatchRepositoryImpl
-import com.calc.qualification.repository.TeamRepositoryImpl
 import kotlinx.coroutines.runBlocking
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.shell.component.SingleItemSelector
-import org.springframework.shell.component.support.SelectorItem
-import org.springframework.shell.standard.AbstractShellComponent
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 import org.springframework.shell.standard.ShellOption
+import org.springframework.stereotype.Component
 import java.util.*
 
 
@@ -26,14 +20,17 @@ import java.util.*
 class WorldCupCommands {
 
     @Autowired
-    var shellHelper: ShellHelper? = null
-
-    var groupRepo = GroupRepositoryImpl(GroupDaoApi())
-    var matchRepo = MatchRepositoryImpl(MatchDaoApi())
-    var teamRepo: TeamRepositoryImpl = TeamRepositoryImpl(TeamDaoApi(), GroupDaoApi())
+    private val shellHelper: ShellHelper? = null
 
     @ShellMethod("Prints the needed results for a team to qualify.")
-    fun qualify(@ShellOption("-t", "--team", arity = 5) vararg nameOfTeams: String) {
+    fun qualify(
+        @ShellOption(
+            "-t",
+            "--team",
+            arity = 5,
+            valueProvider = TeamValueProvider::class
+        ) vararg nameOfTeams: String
+    ) {
         for (nameOfTeam in nameOfTeams) {
             val teamName =
                 nameOfTeam.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
@@ -44,7 +41,7 @@ class WorldCupCommands {
             runBlocking {
                 qualified = conditionFinder.findPossibleResults(teamName)
 
-                //todo : get winners of the group
+
                 println("=============Results for $teamName to qualify:==============")
                 qualified.forEach { matchList ->
                     matchList.forEach {
@@ -70,7 +67,7 @@ class WorldCupCommands {
             println("Getting teams...")
 
             runBlocking {
-                teams = teamRepo.getAllTeams().toList()
+                teams = Data.teamRepo.getAllTeams().toList()
             }
 
             if (teams.isEmpty())
@@ -85,7 +82,7 @@ class WorldCupCommands {
         if (groupFlag) {
             println("Getting groups...")
             runBlocking {
-                groups = groupRepo.getAllGroups()
+                groups = Data.groupRepo.getAllGroups()
             }
             groups.groups.forEach {
                 println(shellHelper!!.getColored("${it.letter} :", PromptColor.YELLOW))
@@ -99,24 +96,30 @@ class WorldCupCommands {
     @ShellMethod("Lists groups standings")
     fun standings() {
 
-        val allGroups : Groups
+        val allGroups: Groups
         val rankingUtil = RankingUtil(MatchRepositoryImpl(MatchDaoApi()))
         runBlocking {
-            allGroups = groupRepo.getAllGroups()
+            allGroups = Data.groupRepo.getAllGroups()
             for (group in allGroups.groups) {
                 rankingUtil.sortGroup(group)
             }
         }
         for (group in allGroups.groups) {
-            println(shellHelper!!.getColored("=======${group.letter}=======", PromptColor.RED))
+            println(shellHelper!!.getColored("${group.letter}:", PromptColor.RED))
             println("Name\tPt\tGF\tGA\tGDF")
-            for (team in group.teams){
-                println(shellHelper!!.getColored("${team.country} \t${team.group_points} \t${team.goals_for} \t${team.goals_against} \t${team.goal_differential}",
-                    PromptColor.BLUE
-                ))
+            for (team in group.teams) {
+                println(
+                    shellHelper!!.getColored(
+                        "${team.country} \t${team.group_points} \t${team.goals_for} \t${team.goals_against} \t${team.goal_differential}",
+                        PromptColor.BLUE
+                    )
+                )
             }
         }
     }
 
 }
+
+
+
 

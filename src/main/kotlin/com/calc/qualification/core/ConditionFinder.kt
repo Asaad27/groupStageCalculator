@@ -84,24 +84,15 @@ class ConditionFinder(private val teamName: String) {
     }
 
     private fun generateResultCombinations(): List<Pair<Int, Int>> {
-        return listOf(
-            5 to 0,
-            4 to 0,
-            3 to 0,
-            2 to 0,
-            1 to 0,
-            0 to 0,
-            1 to 1,
-            2 to 2,
-            3 to 3,
-            4 to 4,
-            5 to 5,
-            0 to 1,
-            0 to 2,
-            0 to 3,
-            0 to 4,
-            0 to 5
-        )
+        val result = mutableListOf<Pair<Int, Int>>()
+        for (i in goalLimit downTo 0)
+            result.add(i to 0)
+        for (i in 1..goalLimit)
+            result.add(i to i)
+        for (i in 1..goalLimit)
+            result.add(0 to i)
+
+        return result
     }
 
     suspend fun findPossibleResults(teamName: String): List<List<Match>> {
@@ -176,8 +167,6 @@ class ConditionFinder(private val teamName: String) {
 
         return rankingOfTeam <= 1
     }
-
-    fun groupHasRemainingMatches() = group.teams.any { it.games_played < 4 }
 
 }
 

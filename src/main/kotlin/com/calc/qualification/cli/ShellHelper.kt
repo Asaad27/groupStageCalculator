@@ -1,4 +1,4 @@
-package com.calc.qualification
+package com.calc.qualification.cli
 
 import org.jline.terminal.Terminal
 import org.jline.utils.AttributedStringBuilder
