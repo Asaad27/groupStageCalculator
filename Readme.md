@@ -14,7 +14,7 @@ In the world cup shell:
 
 `help <Command>`
 
-Press <TAB> for autocompletion 
+Press `<TAB>` for autocompletion (for options and values as well)
 
 World Cup Commands:
 
