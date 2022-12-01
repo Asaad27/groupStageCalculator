@@ -27,12 +27,12 @@ Example:
 ![alt text](qualifyKoreaPNG.PNG)
 
 TODO:
-1. [x] current and next matches
-2. [x] live score
-3. [x] dashboard for fixtures
-4. [x] live lineups 
-5. [x] add cache to database
-6. [x] add Trie for autocompletion
-7. [x] add docker
-8. [x] add progress bar
-9. [x] add tests
+1. [] current and next matches
+2. [] live score
+3. [] dashboard for fixtures
+4. [] live lineups 
+5. [] add cache to database
+6. [] add Trie for autocompletion
+7. [] add docker
+8. [] add progress bar
+9. [] add tests
