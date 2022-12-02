@@ -25,7 +25,9 @@ World Cup Commands:
 
 Example:
 
-![alt text](qualifyKoreaPNG.PNG)
+![qualify](qualifyKoreaPNG.PNG)
+
+![matches](matchesPNG.PNG)
 
 TODO:
 1. [X] current and next matches
