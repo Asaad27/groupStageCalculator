@@ -1,11 +1,11 @@
-package com.calc.qualification.repository
+package com.calc.qualification.dataservice
 
 
 import com.calc.qualification.dao.GroupDao
 import com.calc.qualification.dao.TeamDao
 import com.calc.qualification.model.Team
 
-class TeamRepositoryImpl(private val teamDao: TeamDao, private val groupDao: GroupDao) : TeamRepository {
+class TeamDataServiceImpl(private val teamDao: TeamDao, private val groupDao: GroupDao) : TeamDataService {
 
     //todo: cache data
     override suspend fun getTeam(countryCode: String): Team = teamDao.fetchTeam(countryCode)

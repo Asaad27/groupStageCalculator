@@ -5,9 +5,7 @@ import com.calc.qualification.model.Match
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 
-class MatchDaoApi : MatchDao {
-
-    private val url = "https://worldcupjson.net/matches/"
+class MatchDaoApi : MatchDao() {
 
     override suspend fun fetchAllMatches(): List<Match> {
         return Client

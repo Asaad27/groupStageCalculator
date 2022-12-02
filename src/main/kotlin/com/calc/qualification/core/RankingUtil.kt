@@ -1,9 +1,8 @@
 package com.calc.qualification.core
 
+import com.calc.qualification.dataservice.MatchDataService
 import com.calc.qualification.model.Group
 import com.calc.qualification.model.Team
-import com.calc.qualification.repository.MatchRepository
-import kotlinx.coroutines.runBlocking
 
 
 /**
@@ -13,7 +12,7 @@ import kotlinx.coroutines.runBlocking
  * 4- goal difference between tied teams
  * 5- number of goals scored between tied teams
  */
-class RankingUtil(private val matchRepo: MatchRepository) {
+class RankingUtil(private val matchRepo: MatchDataService) {
 
     suspend fun sortGroup(group: Group) {
         group.teams.sort()
@@ -21,7 +20,7 @@ class RankingUtil(private val matchRepo: MatchRepository) {
         group.teams.reverse()
     }
 
-    private suspend fun getPointsBetween( teamName1: String, teamName2: String): Pair<Int, Int>{
+    private suspend fun getPointsBetween(teamName1: String, teamName2: String): Pair<Int, Int> {
         val result = matchRepo.getMatchResult(teamName1, teamName2)
         return Companion.getPointsBetween(result)
     }
@@ -78,7 +77,7 @@ class RankingUtil(private val matchRepo: MatchRepository) {
     }
 
     companion object {
-          fun getPointsBetween(result: Pair<Int?, Int?>): Pair<Int, Int> {
+        fun getPointsBetween(result: Pair<Int?, Int?>): Pair<Int, Int> {
 
             return if (result.first == null || result.second == null)
                 0 to 0

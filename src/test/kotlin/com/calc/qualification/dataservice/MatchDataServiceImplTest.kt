@@ -1,13 +1,13 @@
-package com.calc.qualification.repository
+package com.calc.qualification.dataservice
 
 import com.calc.qualification.dao.GroupDaoApi
 import com.calc.qualification.dao.MatchDaoApi
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 
-internal class MatchRepositoryImplTest {
+internal class MatchDataServiceImplTest {
 
-    private val matchRepo = MatchRepositoryImpl(MatchDaoApi())
+    private val matchRepo = MatchDataServiceImpl(MatchDaoApi())
     @Test
     fun getAllMatches() {
         runBlocking {
@@ -36,11 +36,39 @@ internal class MatchRepositoryImplTest {
 
     @Test
     fun getRemainingMatchesGroup(){
-        val groupRepo = GroupRepositoryImpl(GroupDaoApi())
+        val groupRepo = GroupDataServiceImpl(GroupDaoApi())
         runBlocking {
             val result = matchRepo.getRemainingMatchesGroup(groupRepo.getGroup("F"))
             result.forEach { println(it) }
         }
-
     }
+
+    @Test
+    fun getTodayMatches(){
+        runBlocking {
+            val results = matchRepo.getTodayMatches().onEach { println(it) }
+        }
+    }
+
+    @Test
+    fun getCurrentMatches(){
+        runBlocking {
+            val results = matchRepo.getCurrentMatches().onEach { println(it) }
+        }
+    }
+
+    @Test
+    fun getNextMatches(){
+        runBlocking {
+            val results = matchRepo.getNextMatches().onEach { println(it) }
+        }
+    }
+
+    @Test
+    fun getPrevMatches(){
+        runBlocking {
+            val results = matchRepo.getPrevMatches().onEach { println(it) }
+        }
+    }
+
 }

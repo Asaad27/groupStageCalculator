@@ -4,20 +4,17 @@ import com.calc.qualification.dao.GroupDaoApi
 import com.calc.qualification.dao.MatchDaoApi
 import com.calc.qualification.dao.MatchDaoSimulation
 import com.calc.qualification.dao.TeamDaoApi
-import com.calc.qualification.model.Group
-import com.calc.qualification.model.Match
-import com.calc.qualification.model.MatchTeam
-import com.calc.qualification.model.Team
-import com.calc.qualification.repository.GroupRepositoryImpl
-import com.calc.qualification.repository.MatchRepositoryImpl
-import com.calc.qualification.repository.TeamRepositoryImpl
+import com.calc.qualification.dataservice.GroupDataServiceImpl
+import com.calc.qualification.dataservice.MatchDataServiceImpl
+import com.calc.qualification.dataservice.TeamDataServiceImpl
+import com.calc.qualification.model.*
 import kotlinx.coroutines.runBlocking
 import java.util.*
 
 class ConditionFinder(private val teamName: String) {
-    private val groupRepo = GroupRepositoryImpl(GroupDaoApi())
-    private val teamRepo = TeamRepositoryImpl(TeamDaoApi(), GroupDaoApi())
-    private val matchRepo = MatchRepositoryImpl(MatchDaoApi())
+    private val groupRepo = GroupDataServiceImpl(GroupDaoApi())
+    private val teamRepo = TeamDataServiceImpl(TeamDaoApi(), GroupDaoApi())
+    private val matchRepo = MatchDataServiceImpl(MatchDaoApi())
 
     private var group: Group
     private var team: Team
@@ -69,7 +66,7 @@ class ConditionFinder(private val teamName: String) {
         match.apply {
             home_team.goals = result.first
             away_team.goals = result.second
-            status = "completed"
+            status = MatchStatus.completed
             winner = when {
                 result.first > result.second -> home_team.name
                 result.first < result.second -> away_team.name
@@ -113,7 +110,7 @@ class ConditionFinder(private val teamName: String) {
         }
 
         val matchOfTeam = remaining.first { it.isPlaying(teamName) }
-        if (matchOfTeam.home_team.name == teamName){
+        if (matchOfTeam.home_team.name == teamName) {
             matchOfTeam.swapTeams()
         }
 
@@ -157,7 +154,7 @@ class ConditionFinder(private val teamName: String) {
             computeMatchToGroup(it, simulateGroup)
         }
 
-        val matchRepo = MatchRepositoryImpl(MatchDaoSimulation(matches + completedMatches))
+        val matchRepo = MatchDataServiceImpl(MatchDaoSimulation(matches + completedMatches))
         val rankingUtil = RankingUtil(matchRepo)
         rankingUtil.sortGroup(simulateGroup)
 

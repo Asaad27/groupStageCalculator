@@ -5,7 +5,7 @@ import com.calc.qualification.model.Groups
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 
-class GroupDaoApi: GroupDao {
+class GroupDaoApi : GroupDao {
 
     private val url = "https://worldcupjson.net/teams/"
 

@@ -20,14 +20,15 @@ World Cup Commands:
 
 * ls: List world cup team names.
 * qualify: Prints the needed results for a team to qualify.
-* standings: Lists groups standings
+* standings: Lists groups standings.
+* matches: Lists current and/or previous matches. 
 
 Example:
 
 ![alt text](qualifyKoreaPNG.PNG)
 
 TODO:
-1. [ ] current and next matches
+1. [X] current and next matches
 2. [ ] live score
 3. [ ] dashboard for fixtures
 4. [ ] live lineups 

@@ -1,4 +1,4 @@
-package com.calc.qualification.repository
+package com.calc.qualification.dataservice
 
 import com.calc.qualification.dao.GroupDaoApi
 import com.calc.qualification.dao.TeamDaoApi
@@ -6,9 +6,9 @@ import com.calc.qualification.model.Team
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 
-internal class TeamRepositoryImplTest {
+internal class TeamDataServiceImplTest {
 
-    private val teamRepo = TeamRepositoryImpl(TeamDaoApi(), GroupDaoApi())
+    private val teamRepo = TeamDataServiceImpl(TeamDaoApi(), GroupDaoApi())
 
     @Test
     fun getTeam() {
@@ -39,4 +39,6 @@ internal class TeamRepositoryImplTest {
 
         assert(teamByName == teamByCode)
     }
+
+
 }
