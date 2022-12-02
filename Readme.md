@@ -37,3 +37,5 @@ TODO:
 7. [ ] add docker
 8. [ ] add progress bar
 9. [ ] add tests
+
+Used API for fetching data: [estiens/world_cup_json](https://github.com/estiens/world_cup_json)
